@@ -191,3 +191,129 @@ setInterval(
   300000
 );
 ```
+```javascript
+// ======================
+// 地図機能
+// ======================
+
+let map;
+let currentMarker;
+
+function initMap(){
+
+  map = L.map("map").setView(
+    [35.681236, 139.767125],
+    12
+  );
+
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      attribution:
+        "&copy; OpenStreetMap contributors"
+    }
+  ).addTo(map);
+
+}
+
+function locateUser(){
+
+  if(!navigator.geolocation){
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position){
+
+      const lat =
+        position.coords.latitude;
+
+      const lng =
+        position.coords.longitude;
+
+      map.setView(
+        [lat,lng],
+        15
+      );
+
+      if(currentMarker){
+        map.removeLayer(
+          currentMarker
+        );
+      }
+
+      currentMarker =
+        L.marker([lat,lng])
+        .addTo(map)
+        .bindPopup("現在地");
+
+      showSampleShelters(
+        lat,
+        lng
+      );
+
+    },
+
+    function(error){
+
+      console.error(error);
+
+    }
+
+  );
+
+}
+
+function showSampleShelters(
+  lat,
+  lng
+){
+
+  const shelters = [
+
+    {
+      name:"避難所A",
+      lat:lat + 0.003,
+      lng:lng + 0.002
+    },
+
+    {
+      name:"避難所B",
+      lat:lat - 0.004,
+      lng:lng + 0.003
+    }
+
+  ];
+
+  let html =
+    "<h3>近くの避難所</h3>";
+
+  shelters.forEach(
+    shelter => {
+
+      L.marker([
+        shelter.lat,
+        shelter.lng
+      ])
+      .addTo(map)
+      .bindPopup(
+        shelter.name
+      );
+
+      html += `
+        ${shelter.name}<br>
+      `;
+
+    }
+  );
+
+  document.getElementById(
+    "shelters"
+  ).innerHTML = html;
+
+}
+
+initMap();
+locateUser();
+```
