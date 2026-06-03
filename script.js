@@ -1,24 +1,7 @@
-async function loadData(){
-
-document.getElementById("weather").textContent =
-"天気データ接続待機中";
-
-document.getElementById("alerts").textContent =
-"防災データ接続待機中";
-
-document.getElementById("shelters").textContent =
-"避難所データ接続待機中";
-
+async function loadWeather(){
+  // 天気取得処理
 }
 
-async function loadData(){
-
-  await loadWeather();
-  await loadAlerts();
-
-};
-
-setInterval(loadData,300000);
 async function loadAlerts(){
 
   try{
@@ -37,6 +20,23 @@ async function loadAlerts(){
   }
 
 }
+
+async function loadData(){
+
+  document.getElementById("weather").textContent =
+    "天気データ取得中...";
+
+  document.getElementById("alerts").textContent =
+    "防災データ取得中...";
+
+  document.getElementById("shelters").textContent =
+    "避難所データ取得中...";
+
+  await loadWeather();
+  await loadAlerts();
+
+}
+
 function showAlert(level, title){
 
   const banner =
@@ -56,9 +56,4 @@ function showAlert(level, title){
     banner.classList.add("level5");
   }
 
-  banner.innerHTML = `
-    🚨 警戒レベル${level}<br>
-    ${title}
-  `;
-
-}
+  banner.innerHTML =
