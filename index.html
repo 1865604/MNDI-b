@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOND防災センター</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="alertBanner"></div>
+
+<header>
+  <h1>🌤 MOND防災センター</h1>
+</header>
+
+<main>
+  <section class="card">
+    <h2>天気情報</h2>
+    <div id="weather">取得中...</div>
+  </section>
+
+  <section class="card">
+    <h2>防災情報</h2>
+    <div id="alerts">取得中...</div>
+  </section>
+
+  <section class="card">
+    <h2>避難所情報</h2>
+    <div id="shelters">取得中...</div>
+  </section>
+
+  <div id="map"></div>
+</main>
+
+<audio id="alarm"></audio>
+
+<script src="script.js"></script>
+
+</body>
+</html>
