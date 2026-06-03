@@ -37,3 +37,28 @@ async function loadAlerts(){
   }
 
 }
+function showAlert(level, title){
+
+  const banner =
+    document.getElementById("alertBanner");
+
+  banner.className = "";
+
+  if(level === 3){
+    banner.classList.add("level3");
+  }
+
+  if(level === 4){
+    banner.classList.add("level4");
+  }
+
+  if(level === 5){
+    banner.classList.add("level5");
+  }
+
+  banner.innerHTML = `
+    🚨 警戒レベル${level}<br>
+    ${title}
+  `;
+
+}
